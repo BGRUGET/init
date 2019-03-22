@@ -1,0 +1,5 @@
+#!/bin/bash
+
+ifconfig en0 |  grep broadcast | cut -d " " -f 6 # en0 Ethernet 
+
+ping -t 1 $(ifconfig en0 | grep broadcast | cut -d " " -f 6) | grep bytes | cut -d " " -f 4 |cut -d ":" -f 1 

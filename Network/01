@@ -1,0 +1,3 @@
+#!/bin/bash
+
+ifconfig | grep UP |cut -d ":" -f 1
