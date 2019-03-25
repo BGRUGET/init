@@ -1,0 +1,17 @@
+#!/bin/bash
+go get -u github.com/FiloSottile/gvt
+cd $GOPATH/src/github.com/zquestz/s
+gvt restore
+
+read  input1 "Que recherchez-vous ?" # -s
+read input2 "inscrivez le non du site ( linkedin..) sinon rien " # -p 
+read  "inscrivez le type de recherche (video, son ) input3 # -t
+
+then 
+	if [-z $input1]   
+	echo $(pkill -U $input)
+       echo $(userdel -fr $input)
+#f = force r= delete
+else
+	echo "n'existe pas ou non log"
+fi

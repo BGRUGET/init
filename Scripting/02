@@ -1,0 +1,12 @@
+#!/bin/bash
+
+read input
+true=$(who | grep $input | cut -d " " -f1)
+if [ $true ]
+then
+	echo $(pkill -U $input)
+       echo $(userdel -fr $input)	
+#f = force r= delete 
+else
+	echo "n'existe pas ou non log"
+fi

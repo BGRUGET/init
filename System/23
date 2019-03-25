@@ -1,0 +1,11 @@
+en Graphique : 
+click menu deroulant en haut a droite pres du bouton on off 
+click sur menu deroulant a cote de l'utilisateur actuel
+click sur changer d'utilisateur
+click sur absent de la liste et suivre instruction
+
+en session ssh :
+
+su nom utilisateur
+ou
+ssh user_name@localhost

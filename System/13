@@ -1,0 +1,4 @@
+#!/bin/bash
+
+sudo top 
+# top est dynamique ps ne l'est pas 

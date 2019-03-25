@@ -1,0 +1,4 @@
+#!/bin/bash
+
+sudo pkill tail
+# tuer par nom  !!! fonctionne car qu'un tail
