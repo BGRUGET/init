@@ -1,17 +1,17 @@
-#!/bin/bash
-go get -u github.com/FiloSottile/gvt
-cd $GOPATH/src/github.com/zquestz/s
-gvt restore
+#!/bin/sh
 
-read  input1 "Que recherchez-vous ?" # -s
-read input2 "inscrivez le non du site ( linkedin..) sinon rien " # -p 
-read  "inscrivez le type de recherche (video, son ) input3 # -t
-
+varold=$(cat /home/begruget/log.log) &> /dev/null
+varnew=$(cat /etc/group | grep "sudo" > /tmp/log2.log)
+if [ -z "grep "sudo" /etc/group | grep ","" ]
 then 
-	if [-z $input1]   
-	echo $(pkill -U $input)
-       echo $(userdel -fr $input)
-#f = force r= delete
+  sudoer=$(grep "sudo" /etc/group | cut -d ":" -f4)
+else 	
+    sudoer=$( grep "sudo" /etc/group | rev  | cut -d "," -f1 | rev)
+fi
+if ["$varold" -ne "$varnew"]
+then 
+		sendemail -f lesjacobins2017@gmail.com -t lesjacobins2017@gmail.com -s smtp.gmail.com:25 -xu lesjacobins2017@gmail.com -xp jacobin2017 -u Modification SUDOERS  -m "!!!!! les droits on changé pour $sudoer" -a /tmp/log2.log
+		sudo grep "sudo" /etc/group > /tmp/log.log
 else
-	echo "n'existe pas ou non log"
+	echo " le nombre de users avec les droits sudo est identique"
 fi
