@@ -1,17 +1,20 @@
 #!/bin/sh
 
-varold=$(cat /home/begruget/log.log) &> /dev/null
-varnew=$(cat /etc/group | grep "sudo" > /tmp/log2.log)
-if [ -z "grep "sudo" /etc/group | grep ","" ]
+varold=$(cat /home/begruget/log.log)
+sudo cat /etc/group | grep "sudo" | cut -d ":" -f4 | tr "," "\n" > /tmp/log2.log
+varnew=$(cat /tmp/log2.log)
+#if [ -z "grep "sudo" /etc/group | grep ","" ]
+#then 
+# sudo cat /home/begruget/log.log | cut -d ":" -f4 | tr "," "\n"
+#else 	
+sudoerold=$(sudo cat /home/begruget/log.log | wc -l)
+sudoerall=$(sudo cat /tmp/log2.log | wc -l)
+sudoernew=$((sudoerall-sudoerold)) 
+#fi
+if [ "$varold" != "$varnew" ]
 then 
-  sudoer=$(grep "sudo" /etc/group | cut -d ":" -f4)
-else 	
-    sudoer=$( grep "sudo" /etc/group | rev  | cut -d "," -f1 | rev)
-fi
-if ["$varold" -ne "$varnew"]
-then 
-		sendemail -f lesjacobins2017@gmail.com -t lesjacobins2017@gmail.com -s smtp.gmail.com:25 -xu lesjacobins2017@gmail.com -xp jacobin2017 -u Modification SUDOERS  -m "!!!!! les droits on changé pour $sudoer" -a /tmp/log2.log
-		sudo grep "sudo" /etc/group > /tmp/log.log
+	sendemail -f lesjacobins2017@gmail.com -t lesjacobins2017@gmail.com -s smtp.gmail.com:25 -xu lesjacobins2017@gmail.com -xp jacobin2017 -u Modification SUDOERS  -m "!!!!! les droits on changé pou $sudoernew user.s" -a /tmp/log2.log
+		rm /home/begruget/log.log && touch /home/begruget/log.log && sudo cat /etc/group | grep "sudo" | cut -d ":" -f4 | tr "," "\n" > /home/begruget/log.log
 else
-	echo " le nombre de users avec les droits sudo est identique"
+	echo " le nombre de users avec les droits sudo n'a pas augmente"
 fi
